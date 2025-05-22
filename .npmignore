@@ -1,0 +1,38 @@
+# Development and testing files
+src/
+tests/
+.eslintrc.json
+.prettierrc.json
+jest.config.js
+tsconfig.json
+.husky/
+.github/
+
+# Node modules (ignored by default)
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+*.sublime-project
+
+# OS files
+.DS_Store
+.Thumbs.db
+
+# Git files
+.git/
+.gitignore
+
+# Misc
+*.md
+!README.md
+.env
+.env.local
+.env.*.local
