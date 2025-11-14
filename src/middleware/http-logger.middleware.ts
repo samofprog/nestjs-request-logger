@@ -286,7 +286,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
                 durationMs,
             });
 
-            if (statusCode >= 300) {
+            if (statusCode >= 400) {
                 logger.error(message);
             } else {
                 logger.log(message);
