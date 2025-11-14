@@ -1,23 +1,43 @@
 {
-  "name": "@samofprog/nestjs-http-logger",
-  "version": "3.0.0",
+  "name": "@samofprog/nestjs-request-logger",
+  "version": "3.1.0",
+  "description": "A production-ready NestJS middleware for comprehensive HTTP request/response logging with security features",
+  "author": "Samuel Assemien <sa.assemien@gmail.com>",
+  "license": "MIT",
+  "type": "commonjs",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
-  "description": "A NestJS middleware for logging HTTP requests",
-  "author": "Samuel Assemien  <sa.assemien@gmail.com>",
-  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "yarn clean && tsc",
+    "prebuild": "yarn clean && yarn lint",
+    "build": "tsc",
+    "postbuild": "echo 'Build completed successfully'",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "publish:local": "yarn build && yalc publish",
     "publish:online": "yarn build && npm publish --access public",
-    "test": "jest",
     "start": "ts-node src/index.ts",
     "lint": "eslint 'src/**/*.{js,ts}' --fix",
-    "format": "prettier --write 'src/**/*.ts'"
+    "lint:check": "eslint 'src/**/*.{js,ts}'",
+    "format": "prettier --write 'src/**/*.ts'",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@nestjs/common": "^11.1.5",
@@ -31,7 +51,9 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "globals": "^15.14.0",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
+    "lint-staged": "^15.2.11",
     "prettier": "3.4.2",
     "reflect-metadata": "^0.2.2",
     "rimraf": "^6.0.1",
@@ -40,6 +62,12 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.19.0"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "keywords": [
     "nestjs",
