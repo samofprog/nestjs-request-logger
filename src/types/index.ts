@@ -1,80 +1,37 @@
-import { Request, Response } from 'express';
-import {
-    InjectionToken,
-    LoggerService,
-    OptionalFactoryDependency,
-} from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
+/**
+ * @file Types Export Hub
+ * @description Central export for all type definitions
+ * @author samofprog
+ * @license MIT
+ */
 
-// Request and Response types
-export type Req = Request | FastifyRequest;
+// Request/Response types
+export type { Req, Res, ExpressRes, FastifyRes } from './req-res.types';
 
-export interface ExpressRes extends Response {
-    statusCode: number;
-}
+// Data structure types
+export type { Headers } from './headers.types';
+export type { RequestDetails } from './request-details.types';
+export type { CompletedRequestDetails } from './response-details.types';
+export type { PathPattern } from './path-pattern.types';
 
-export interface FastifyRes extends FastifyReply {
-    statusCode: number;
-}
-
-export type Res = ExpressRes | FastifyRes;
-
-// Headers type
-export type Headers = Record<string, string | string[] | undefined>;
-
-// Request details for logging
-export interface RequestDetails {
-    method: string;
-    url: string;
-    headers: Headers;
-    body?: unknown;
-}
-
-export interface CompletedRequestDetails {
-    method: string;
-    url: string;
-    statusCode: number;
-    durationMs: string;
-    responseData?: unknown;
-}
-
-// Configuration interfaces
-export interface SanitizerConfig {
-    sensitiveHeaders?: string[];
-    sanitizeHeaders?: (headers: Headers) => Headers;
-}
-
-export interface FormatterConfig {
-    incomingRequestMessage?: (details: RequestDetails) => string;
-    completedRequestMessage?: (details: CompletedRequestDetails) => string;
-}
-
-export interface PathMatcherConfig {
-    ignorePaths?: string[];
-}
-
-export interface LoggerConfig {
-    logger?: LoggerService;
-    logHeaders?: boolean;
-    logRequestBody?: boolean;
-}
-
-// Main configuration interface
-export interface HttpLoggerOptions
-    extends SanitizerConfig,
-        FormatterConfig,
-        PathMatcherConfig,
-        LoggerConfig {}
-
-// Module configuration interfaces
-export type HttpLoggerModuleOptions = Partial<HttpLoggerOptions>;
-
-export interface HttpLoggerAsyncOptions {
-    useFactory: (
-        ...args: unknown[]
-    ) => Promise<HttpLoggerModuleOptions> | HttpLoggerModuleOptions;
-    inject?: (InjectionToken | OptionalFactoryDependency)[];
-}
+// Configuration types
+export type {
+    RequestLoggerOptions,
+    RequestLoggerModuleOptions,
+    RequestLoggerAsyncOptions,
+    SanitizerConfig,
+    FormatterConfig,
+    PathMatcherConfig,
+    LoggerConfig,
+} from './request-logger-options.types';
 
 // Utility types
-export type PathPattern = string | RegExp;
+export type { PathMatcherFunction } from './path-matcher.types';
+export type { HeaderFieldExtractorFunction } from './header-field-extractor.types';
+export type { HeaderSanitizerFunction } from './header-sanitizer.types';
+export type { NestedExtractorFunction } from './nested-extractor.types';
+export type {
+    IncomingRequestFormatter,
+    CompletedRequestFormatter,
+    MessageFormatters,
+} from './message-formatter.types';
