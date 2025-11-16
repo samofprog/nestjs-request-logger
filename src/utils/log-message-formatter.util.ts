@@ -16,9 +16,9 @@ import { HeaderSanitizer } from './header-sanitizer.util';
 /**
  * Structured log message formatter.
  *
- * Formats log messages in key=value format with camelCase keys:
- * - Incoming: `method=GET path=/api/users`
- * - Completed: `method=GET path=/api/users statusCode=200 durationMs=45ms`
+ * Formats log messages in key=value format with camelCase keys and descriptive prefixes:
+ * - Incoming: `Incoming request: method=GET path=/api/users`
+ * - Completed: `Request completed: method=GET path=/api/users statusCode=200 durationMs=45ms`
  *
  * Supports:
  * - Custom header field extraction
@@ -37,12 +37,12 @@ import { HeaderSanitizer } from './header-sanitizer.util';
  *   sensitiveHeaders: ['authorization', 'x-api-key']
  * });
  *
- * const incoming = formatter.formatIncoming({
+ * const incoming = formatter.incoming({
  *   method: 'GET',
  *   path: '/api/users',
  *   headers: { 'content-type': 'application/json' },
  * });
- * // Result: "method=GET path=/api/users content-type=application/json"
+ * // Result: "Incoming request: method=GET path=/api/users content-type=application/json"
  * ```
  */
 export class LogMessageFormatter implements MessageFormatters {
@@ -83,7 +83,7 @@ export class LogMessageFormatter implements MessageFormatters {
         const headerFields =
             this.headerFieldExtractor.extract(sanitizedHeaders);
 
-        let message = `method=${details.method} path=${details.path}${headerFields}`;
+        let message = `Incoming request: method=${details.method} path=${details.path}${headerFields}`;
 
         if (this.logRequestBody && details.body) {
             message += ` body=${JSON.stringify(details.body)}`;
@@ -99,7 +99,7 @@ export class LogMessageFormatter implements MessageFormatters {
      * @returns {string} Formatted log message
      */
     completed = (details: CompletedRequestDetails): string => {
-        let message = `method=${details.method} path=${details.path} statusCode=${details.statusCode} durationMs=${details.durationMs}ms`;
+        let message = `Request completed: method=${details.method} path=${details.path} statusCode=${details.statusCode} durationMs=${details.durationMs}ms`;
 
         if (details.responseData) {
             message += ` body=${JSON.stringify(details.responseData)}`;

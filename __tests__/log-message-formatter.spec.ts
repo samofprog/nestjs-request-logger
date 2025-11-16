@@ -19,6 +19,7 @@ describe('LogMessageFormatter', () => {
                 headers: { 'content-type': 'application/json' },
             });
 
+            expect(result).toContain('Incoming request:');
             expect(result).toContain('GET');
             expect(result).toContain('/api/users');
         });
@@ -87,6 +88,7 @@ describe('LogMessageFormatter', () => {
                 durationMs: '25.50',
             });
 
+            expect(result).toContain('Request completed:');
             expect(result).toContain('GET');
             expect(result).toContain('/api/users');
             expect(result).toContain('200');

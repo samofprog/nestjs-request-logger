@@ -183,6 +183,26 @@ const DEFAULT_SENSITIVE_HEADERS = [
 ];
 ```
 
+### 📋 Default Log Message Format
+
+The middleware formats log messages in a structured key=value format with descriptive prefixes for easy parsing and readability:
+
+**Incoming Request:**
+```
+Incoming request: method=GET path=/api/users content-type=application/json
+```
+
+**Completed Request:**
+```
+Request completed: method=GET path=/api/users statusCode=200 durationMs=45.23ms
+```
+
+This format provides:
+- Clear prefixes identifying request lifecycle
+- Key=value pairs for easy parsing by log aggregation tools
+- camelCase keys following Node.js conventions
+- Structured data that's human-readable and machine-parseable
+
 ### 📊 Custom Message Formatters
 
 Format log messages to match your requirements:

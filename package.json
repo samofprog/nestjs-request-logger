@@ -1,6 +1,6 @@
 {
   "name": "@samofprog/nestjs-request-logger",
-  "version": "3.1.0",
+  "version": "1.0.0",
   "description": "A production-ready NestJS middleware for comprehensive HTTP request/response logging with security features",
   "author": "Samuel Assemien <sa.assemien@gmail.com>",
   "license": "MIT",
