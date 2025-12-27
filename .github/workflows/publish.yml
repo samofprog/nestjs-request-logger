@@ -33,12 +33,12 @@ jobs:
       - name: Build project
         run: yarn build
 
-      - name: Configure npm credentials
-        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-
-      - name: Publish to npm
-        if: startsWith(github.ref, 'refs/tags/')
-        run: npm publish --access public
+#      - name: Configure npm credentials
+#        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+#
+#      - name: Publish to npm
+#        if: startsWith(github.ref, 'refs/tags/')
+#        run: npm publish --access public
 
       - name: Create GitHub Release
 #        if: startsWith(github.ref, 'refs/tags/')
