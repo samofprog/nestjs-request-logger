@@ -6,40 +6,40 @@ on:
       - 'v*'
 
 jobs:
-#  publish:
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '22.x'
-#          cache: 'yarn'
-#          registry-url: 'https://registry.npmjs.org'
-#
-#      - name: Install dependencies
-#        run: yarn install --frozen-lockfile
-#
-#      - name: Lint code
-#        run: yarn lint:check
-#
-#      - name: Run tests
-#        run: yarn test
-#
-#      - name: Build project
-#        run: yarn build
-#
-#      - name: Configure npm credentials
-#        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
-#
-#      - name: Publish to npm
-#        run: npm publish --access public
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'yarn'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Lint code
+        run: yarn lint:check
+
+      - name: Run tests
+        run: yarn test
+
+      - name: Build project
+        run: yarn build
+
+      - name: Configure npm credentials
+        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to npm
+        run: npm publish --access public
 
   release:
-#    needs: publish
+    needs: publish
     runs-on: ubuntu-latest
     permissions:
       contents: write
